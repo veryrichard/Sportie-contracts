@@ -159,14 +159,27 @@ library SafeMath {
  * https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
  * Originally based on code by FirstBlood: https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
  */
-contract ERC20 is IERC20, Ownable {
+contract Sportie is IERC20, Ownable {
   using SafeMath for uint256;
 
   mapping (address => uint256) public _balances;
 
   mapping (address => mapping (address => uint256)) private _allowed;
+  
+  uint8 public decimals;
+  uint256 private _totalSupply;
+  string public name;
+  string public symbol;
 
-  uint256 public _totalSupply = 2000000000;
+  constructor () public{
+        decimals = 18;
+        _totalSupply = 2000000000000000000000000000;
+        _balances[msg.sender] = _totalSupply;
+        name = "Sportie";
+        symbol = "SPTI";
+        emit Transfer(address(0), msg.sender, _totalSupply);
+
+    }
 
   /**
   * @dev Total number of tokens in existence
@@ -337,18 +350,6 @@ contract ERC20 is IERC20, Ownable {
       amount);
     _burn(account, amount);
   }
-}
-
-contract Sportie is ERC20 {
-  string public name;
-  string public symbol;
-
-  constructor () public{
-        _balances[msg.sender] = _totalSupply;
-        name = "Sportie";
-        symbol = "SPTI";
-    }
-
   function burn(address account, uint256 amount) public {
     _burn(account, amount);
   }
@@ -356,5 +357,4 @@ contract Sportie is ERC20 {
   function burnFrom(address account, uint256 amount) public {
     _burnFrom(account, amount);
   }
-
 }
