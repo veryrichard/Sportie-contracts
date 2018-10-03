@@ -57,7 +57,7 @@ contract ClaimSPTI{
 
     event FundTransfer(address backer, uint amount, bool isContribution);
     constructor() public {
-        startDate = 1537647506;
+        startDate = 1538554875;
         endDate = startDate + 30 days;
         creator = msg.sender;
         newTokenReward = TokenNEW(0xc91d83955486e5261528d1acc1956529d2fe282b); //Instantiate the new reward
